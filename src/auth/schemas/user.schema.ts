@@ -12,7 +12,7 @@ export class User extends Document {
   @Prop({ required: false })
   password: string;
 
-  @Prop({ default: 'local', enum: ['local', 'google', 'facebook'] })
+  @Prop({ default: 'local', enum: ['local', 'google', 'facebook', 'apple'] })
   provider: string;
 
   @Prop()

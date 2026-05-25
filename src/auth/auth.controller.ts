@@ -5,6 +5,7 @@ import { LoginDto } from './dto/login.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { GoogleAuthGuard } from './guards/google-auth.guard';
 import { FacebookAuthGuard } from './guards/facebook-auth.guard';
+import { AppleAuthGuard } from './guards/apple-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -58,6 +59,20 @@ export class AuthController {
   @UseGuards(FacebookAuthGuard)
   @Get('facebook/callback')
   facebookCallback(@Request() req) {
+    return this.authService.validateOAuthUser(req.user);
+  }
+
+  // ─── Apple OAuth ────────────────────────────────────────────
+
+  @UseGuards(AppleAuthGuard)
+  @Get('apple')
+  appleLogin() {
+    // Guard redirects to Apple
+  }
+
+  @UseGuards(AppleAuthGuard)
+  @Post('apple/callback')
+  appleCallback(@Request() req) {
     return this.authService.validateOAuthUser(req.user);
   }
 }
